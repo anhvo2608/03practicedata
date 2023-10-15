@@ -6,10 +6,9 @@ ORDER BY RIGHT((NAME),3) , ID ASC;
 BAI TAP 02
 SELECT 
 user_id, 
-UPPER(SUBSTRING(name,1,1)),
-LOWER(SUBSTRING(name,2)) 
-AS NAME
+concat(UPPER(left(name, 1)), LOWER(right(name,length(name) -1))) AS NAME
 FROM USERS
+order by user_id;
 
 BAI TAP 03
 SELECT manufacturer,
