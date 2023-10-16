@@ -13,10 +13,19 @@ end as triangle
 from Triangle;
 
 BAI TAP 03
+SELECT
+    ROUND(SUM(CASE 
+      WHEN call_category = 'N/A' THEN 1 
+      WHEN call_category is NULL THEN 1
+      ELSE 0
+    END), 1)
+FROM callers;
+
+BAI TAP 04
 SELECT NAME FROM CUSTOMER
 WHERE REFEREE_ID <> 2 OR REFEREE_ID IS NULL ;
-
-BAI TP 04
+ 
+BAI TP 05
 select 
 CASE
     WHEN PCLASS = 1 THEN 'FIRST_CLASS'
