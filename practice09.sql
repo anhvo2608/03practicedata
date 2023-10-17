@@ -31,5 +31,8 @@ CASE
     WHEN PCLASS = 1 THEN 'FIRST_CLASS'
     WHEN PCLASS = 2 THEN 'SECOND_CLASS'
     ELSE 'THIRD_CLASS'
-END 
-from titanic;
+END passenger_class,
+    SUM(CASE WHEN survived = 1 THEN 1 ELSE 0 END) AS survivors,
+    SUM(CASE WHEN survived = 0 THEN 1 ELSE 0 END) AS non_survivors
+from titanic
+GROUP BY passenger_class;
