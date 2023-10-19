@@ -91,9 +91,9 @@ ORDER BY page_id ASC;
   
 MID COURSE
 QUESTION 1
-select distinct(replacement_cost)
-from film
-order by replacement_cost;
+select 
+min(replacement_cost)
+from film;
 
 QUESTION 02
   C1:
@@ -106,10 +106,7 @@ END AS category,
 COUNT(*) AS so_luong
 FROM film
 GROUP BY category
-  C2:
-SELECT COUNT(*) AS so_luong_phim_low
-FROM film
-WHERE replacement_cost >= 9.99 AND replacement_cost <= 19.99;
+  
 
 QUESTION 03
 SELECT
@@ -146,10 +143,10 @@ QUESTION 6
 SELECT a.address_id, a.address
 FROM address a
 LEFT JOIN customer b ON a.address_id = b.address_id
-WHERE c.address_id IS NULL;
+WHERE a.address_id IS NULL;
 
 QUESTION 7
-select a.city, d.amount, 
+select a.city, 
 sum(d.amount) as total_amount
 from city as a
 join public.address as b on a.city_id = b.city_id
