@@ -2,13 +2,13 @@
 
 CREATE VIEW vw_ecommerce_analyst AS
 with cte as (
-  select * from (select date('%Y-%m', date(b.created_at)) as month_year,
+  select * from (select date('YYYY-mm', date(b.created_at)) as month_year,
   extract(year from b.created_at),
   c.category,
-  sum(b.sale_price) over(partition by c.category order by date('%Y-%m', date(b.created_at))) as s,
-  count(order_id) over (partition by c.category order by date('%Y-%m', date(b.created_at))) as cou,
-  date('%Y-%m', date_add(date (a.created_at), interval 1 month)) as m,
-  sum(b.cost) over(partition by c.category order by date('%Y-%m', date(b.created_at))) as cost,
+  sum(b.sale_price) over(partition by c.category order by date('YYYY-mm', date(b.created_at))) as s,
+  count(order_id) over (partition by c.category order by date('YYYY-mm', date(b.created_at))) as cou,
+  date('YYYY-mm', date_add(date (a.created_at), interval 1 month)) as m,
+  sum(b.cost) over(partition by c.category order by date('YYYY-mm', date(b.created_at))) as cost,
   from bigquery-public-data.thelook_ecommerce.order_items as b
   join bigquery-public-data.thelook_ecommerce.products as c 
   on b.product_id = b.id
@@ -18,7 +18,7 @@ group by 1,2,3,4,5,6,7)
 
 
 
--- COHORT ANALYSIS
+-- COHORT
 with cte_1 as (
   select user_id, sale_price,
   date('%Y-%m', date(first_purchase_date)) as cohort_date,
